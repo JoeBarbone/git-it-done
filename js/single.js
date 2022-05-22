@@ -1,3 +1,5 @@
+var issueContainerEl = document.querySelector("#issues-container");
+
 var getRepoIssues = function(repo) {
     var apiUrl = "https://api.github.com/repos/" + repo + "/issues?direction=asc";
     
@@ -15,6 +17,11 @@ var getRepoIssues = function(repo) {
 };
 
 var displayIssues = function(issues) {
+
+    if (issues.length === 0) {
+        issueContainerEl.textContent = "This repo has no open issues!";
+    }
+
     for (var i=0; i < issues.length; i++) {
         // create a link element to take users to the issue on github
         var issueEl = document.createElement("a");
@@ -41,8 +48,11 @@ var displayIssues = function(issues) {
 
         // append to container
         issueEl.appendChild(typeEl);
+
+        issueContainerEl.appendChild(issueEl);
+
     }
 
 }
 
-getRepoIssues("facebook/react");
+getRepoIssues("JoeBarbone/movie-app");
